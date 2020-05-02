@@ -1,0 +1,63 @@
+.footer {
+    background-color: var(--color-footer-bg);
+    color: var(--color-text-secondary);
+    padding: 20px 15px;
+    font-size: var(--font-size-s);
+    line-height: 1.25;
+    box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.4);
+}
+
+.footer__copyright {
+    margin: 0 0 20px;
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.footer__about {
+    margin: 0 0 20px;
+}
+.footer__social {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.footer__social-item {
+    min-width: 50%;
+    display: block;
+}
+
+.footer__social-link {
+    line-height: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.footer__social-link::before {
+    vertical-align: middle;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    content: '';
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.footer__social-link--twitter::before {
+    background-image: url('../../../assets/images/social/twitter.svg');
+}
+
+.footer__social-link--youtube::before {
+    background-image: url('../../../assets/images/social/youtube.svg');
+}
+
+.footer__social-link--rss::before {
+    background-image: url('../../../assets/images/social/rss.svg');
+}
+
+.footer__social-link--github::before {
+    background-image: url('../../../assets/images/social/github.svg');
+}

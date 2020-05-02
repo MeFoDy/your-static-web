@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'PT Sans', sans-serif;
+}
+
+body {
+    position: relative;
+    margin: 0;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(to bottom, transparent, transparent 95%, cyan 95%);
+    opacity: 0.4;
+    background-repeat: repeat-y;
+    background-size: 100% 20px;
+    pointer-events: none;
+    z-index: 999;
+}
+
+a {
+    color: var(--color-link-primary);
+}
+
+a:hover,
+a:active {
+    color: var(--color-link-hover);
+}
