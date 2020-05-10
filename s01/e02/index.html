@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Статистика подписчиков Веб-стандартов</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="400" height="200"></canvas>
+        <button id="absolute" type="button">Абсолютное число</button>
+        <button id="relative" type="button">Относительное число</button>
+
+        <script src="./node_modules/chart.js/dist/Chart.bundle.js"></script>
+        <script>
+            (async () => {
+                const data = await fetch('./data.json').then(response => response.json());
+
+                const labels = ['vk', 'twitter', 'telegram', 'facebook'];
+
+                const colors = {
+                    twitter: 'rgb(0, 191, 255, 0.5)',
+                    facebook: 'rgb(72, 61, 139, 0.5)',
+                    vk: 'rgb(127, 255, 212, 0.5)',
+                    telegram: 'rgb(255, 99, 71, 0.5)',
+                };
+
+                function generateDataset(data, processor) {
+                    return labels.map(label => {
+                        return {
+                            label: label,
+                            borderColor: colors[label],
+                            backgroundColor: colors[label],
+                            pointStyle: 'rectRot',
+                            pointRadius: 7,
+                            pointBorderColor: 'rgb(0, 0, 0)',
+                            data: processor(data).map(item => item[label]),
+                        };
+                    });
+                }
+
+                function absoluteProcessor(data) {
+                    return data;
+                }
+
+                function relativeProcessor(data) {
+                    return data.map((item, i) => {
+                        const result = {};
+                        labels.forEach(label => {
+                            result[label] = item[label] - data[i > 0 ? i - 1 : i][label];
+                        });
+                        result.date = item.date;
+
+                        return result;
+                    });
+                }
+
+                const config = {
+                    type: 'line',
+                    data: {
+                        labels: data.map(item => item.date),
+                        datasets: generateDataset(data, relativeProcessor),
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            labels: {
+                                usePointStyle: true,
+                            },
+                        },
+                        title: {
+                            display: true,
+                            text: 'Статистика по группам в соц. сетях',
+                        },
+                        tooltips: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        hover: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        scales: {
+                            xAxes: [
+                                {
+                                    type: 'time',
+                                    time: {
+                                        unit: 'day',
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Дни',
+                                    },
+                                },
+                            ],
+                            yAxes: [
+                                {
+                                    stacked: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Подписчиков',
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                };
+
+                const ctx = document.getElementById('canvas').getContext('2d');
+                window.wstChart = new Chart(ctx, config);
+
+                document.querySelector('#relative').addEventListener('click', e => {
+                    window.wstChart.data.datasets = generateDataset(data, relativeProcessor);
+                    window.wstChart.update();
+                });
+
+                document.querySelector('#absolute').addEventListener('click', e => {
+                    window.wstChart.data.datasets = generateDataset(data, absoluteProcessor);
+                    window.wstChart.update();
+                });
+            })();
+        </script>
+    </body>
+</html>

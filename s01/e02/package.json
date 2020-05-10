@@ -1,0 +1,15 @@
+{
+  "name": "e02",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "npx live-server .",
+    "update": "node index.js"
+  },
+  "dependencies": {
+    "chart.js": "^2.9.3",
+    "mz": "^2.7.0",
+    "playwright": "^1.0.1"
+  }
+}
