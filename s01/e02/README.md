@@ -1,5 +1,7 @@
 # #e02 — Скраппинг страниц через Playwright
 
+[![](https://img.youtube.com/vi/OHD77YWRCk0/0.jpg)](https://www.youtube.com/watch?v=OHD77YWRCk0)
+
 Материалы:
 - [Playwright](https://github.com/microsoft/playwright)
 - [Менеджер версий Node.js: NVM](https://github.com/nvm-sh/nvm)
