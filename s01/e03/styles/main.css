@@ -1,0 +1,14 @@
+.main {
+    padding: 0 15px;
+    max-width: 80ch;
+}
+
+@media (min-width: 700px) {
+    .main {
+        --font-size-m: 18px;
+        --font-size-s: 15px;
+        --font-size-l: 22px;
+        --font-size-xl: 26px;
+        --font-size-xxl: 36px;
+    }
+}

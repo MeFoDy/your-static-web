@@ -1,0 +1,12 @@
+@import 'variables.css';
+@import 'fonts.css';
+@import 'global.css';
+
+@import 'wrapper.css';
+@import 'header.css';
+@import 'main.css';
+@import 'article.css';
+@import 'content.css';
+@import 'social-share.css';
+@import 'next-prev.css';
+@import 'footer.css';

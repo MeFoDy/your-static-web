@@ -1,0 +1,126 @@
+.footer {
+    color: var(--color-text-secondary);
+    padding: 20px 15px;
+    font-size: var(--font-size-m);
+    line-height: 1.25;
+    max-width: 80ch;
+}
+
+.footer__copyright {
+    margin: 0 0 20px;
+    font-weight: bold;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-s);
+}
+
+.footer__about {
+    margin: 0 0 20px;
+    font-size: var(--font-size-s);
+}
+
+.footer__social {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    font-size: var(--font-size-s);
+}
+
+.footer__social-item {
+    min-width: 50%;
+    display: block;
+}
+
+.footer__social-link {
+    line-height: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.footer__social-link::before {
+    vertical-align: middle;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    content: '';
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.footer__social-link--twitter::before {
+    background-image: url('../../../assets/images/social/twitter.svg');
+}
+
+.footer__social-link--youtube::before {
+    background-image: url('../../../assets/images/social/youtube.svg');
+}
+
+.footer__social-link--rss::before {
+    background-image: url('../../../assets/images/social/rss.svg');
+}
+
+.footer__social-link--github::before {
+    background-image: url('../../../assets/images/social/github.svg');
+}
+
+@media (min-width: 500px) {
+    .footer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .footer__copyright {
+        width: 100%;
+    }
+
+    .footer__about {
+        max-width: 420px;
+        margin-bottom: 10px;
+    }
+
+    .footer__social {
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .footer__social-item {
+        min-width: auto;
+    }
+
+    .footer__social-item:not(:last-child) {
+        margin-right: 20px;
+    }
+
+    .footer__social-link {
+        line-height: 40px;
+        margin-bottom: 0;
+    }
+}
+
+@supports (display: grid) {
+    @media (min-width: 700px) {
+        .footer {
+            display: grid;
+            grid-template-columns: 1fr 150px;
+        }
+
+        .footer__social {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            align-content: flex-start;
+            flex-direction: column;
+        }
+
+        .footer__social-link {
+            line-height: 20px;
+        }
+    }
+}
+
+@media (min-width: 700px) {
+    .footer {
+        --font-size-s: 15px;
+    }
+}

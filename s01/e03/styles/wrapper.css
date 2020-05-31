@@ -1,0 +1,17 @@
+.wrapper {
+}
+
+.wrapper > * {
+    margin: 0 auto;
+}
+
+.wrapper--footer {
+    background-color: var(--color-footer-bg);
+    box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 510px) {
+    .wrapper--header {
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    }
+}
