@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const fs = require('mz/fs');
+const fetch = require('node-fetch');
 
 function getNumberFromString(string) {
     return Number(string.replace(/[^\d]/gi, ''));
@@ -12,23 +13,15 @@ async function getSocialData(browser, url, getter) {
     return await getter(page);
 }
 
-async function getTwitterData(browser) {
-    const result = await getSocialData(
-        browser,
-        'https://twitter.com/webstandards_ru',
-        async page => {
-            await page.waitForSelector(`text=/^Followers$/i`);
-            const span = await page.$(`text=/^Followers$/i`);
+async function getTwitterData() {
+    const url =
+        'https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=webstandards_ru';
 
-            const followers = await page.evaluate(async span => {
-                return span.parentNode.parentNode.getAttribute('title');
-            }, span);
-
-            return followers;
-        }
-    );
-
-    return getNumberFromString(result);
+    return await fetch(url)
+        .then(res => res.json())
+        .then(json => {
+            return json[0].followers_count;
+        });
 }
 
 async function getVkData(browser) {
