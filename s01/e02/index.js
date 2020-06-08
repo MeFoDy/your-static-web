@@ -43,7 +43,7 @@ async function getFacebookData(browser) {
         'https://www.facebook.com/webstandardsru/',
         async page => {
             await page.waitForSelector('#PagesProfileHomeSecondaryColumnPagelet');
-            const span = await page.$(`text=/^Подписаны.+$/i`);
+            const span = await page.$(`text=/^Подписан.+$/i`);
             const followers = await span.textContent();
 
             return followers;
@@ -71,33 +71,37 @@ async function getTelegramData(browser) {
 
     const browser = await chromium.launch();
 
-    const twitter = await getTwitterData(browser);
-    const vk = await getVkData(browser);
-    const facebook = await getFacebookData(browser);
-    const telegram = await getTelegramData(browser);
+    try {
+        const twitter = await getTwitterData(browser);
+        const vk = await getVkData(browser);
+        const facebook = await getFacebookData(browser);
+        const telegram = await getTelegramData(browser);
 
-    await browser.close();
+        const date = new Date();
+        const dateString = `${date.getUTCFullYear()}.${(date.getUTCMonth() + 1)
+            .toString()
+            .padStart(2, '0')}.${date.getUTCDate().toString().padStart(2, '0')}`;
 
-    const date = new Date();
-    const dateString = `${date.getUTCFullYear()}.${(date.getUTCMonth() + 1)
-        .toString()
-        .padStart(2, '0')}.${date.getUTCDate().toString().padStart(2, '0')}`;
+        const newDay = {
+            vk,
+            twitter,
+            facebook,
+            telegram,
+            date: dateString,
+        };
 
-    const newDay = {
-        vk,
-        twitter,
-        facebook,
-        telegram,
-        date: dateString,
-    };
+        const thisDayInData = currentData.findIndex(day => day.date === dateString);
 
-    const thisDayInData = currentData.findIndex(day => day.date === dateString);
+        if (thisDayInData !== -1) {
+            currentData[thisDayInData] = newDay;
+        } else {
+            currentData.push(newDay);
+        }
 
-    if (thisDayInData !== -1) {
-        currentData[thisDayInData] = newDay;
-    } else {
-        currentData.push(newDay);
+        await fs.writeFileSync('data.json', JSON.stringify(currentData, null, '  '));
+    } catch (e) {
+        console.error(e);
     }
 
-    await fs.writeFileSync('data.json', JSON.stringify(currentData, null, '  '));
+    await browser.close();
 })();
