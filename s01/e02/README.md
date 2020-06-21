@@ -1,6 +1,6 @@
 # #e02 — Скраппинг страниц через Playwright
 
-[![](https://img.youtube.com/vi/OHD77YWRCk0/hqdefault.jpg)](https://www.youtube.com/watch?v=OHD77YWRCk0)
+[![](https://img.youtube.com/vi/OHD77YWRCk0/maxresdefault.jpg)](https://www.youtube.com/watch?v=OHD77YWRCk0)
 
 Материалы:
 - [Playwright](https://github.com/microsoft/playwright)

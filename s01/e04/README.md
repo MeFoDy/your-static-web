@@ -1,6 +1,6 @@
 # #e04 — Печатные стили для страницы
 
-[![](https://img.youtube.com/vi/c4j7I79xNhg/hqdefault.jpg)](https://youtu.be/c4j7I79xNhg)
+[![](https://img.youtube.com/vi/c4j7I79xNhg/maxresdefault.jpg)](https://youtu.be/c4j7I79xNhg)
 
 Материалы:
 - [Распечатай мне курсач. Доклад](https://www.youtube.com/watch?v=xVPCZFBpjsI)

@@ -1,6 +1,6 @@
 # #e03 — Вёрстка без дизайна, часть 2
 
-[![](https://img.youtube.com/vi/0TBTUbyNqaM/hqdefault.jpg)](https://www.youtube.com/watch?v=0TBTUbyNqaM)
+[![](https://img.youtube.com/vi/0TBTUbyNqaM/maxresdefault.jpg)](https://www.youtube.com/watch?v=0TBTUbyNqaM)
 
 Материалы:
 - [Responsive Web Design](https://alistapart.com/article/responsive-web-design/)
