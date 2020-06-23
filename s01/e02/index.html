@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Статистика подписчиков Веб-стандартов</title>
     </head>
+
     <body>
         <canvas id="canvas" width="400" height="200"></canvas>
         <button id="absolute" type="button">Абсолютное число</button>
@@ -74,6 +75,20 @@
                         tooltips: {
                             mode: 'index',
                             intersect: false,
+                            callbacks: {
+                                footer: function (tooltipItems, data) {
+                                    var sum = 0;
+
+                                    tooltipItems.forEach(function (tooltipItem) {
+                                        sum +=
+                                            data.datasets[tooltipItem.datasetIndex].data[
+                                                tooltipItem.index
+                                            ];
+                                    });
+                                    return 'Sum: ' + sum;
+                                },
+                            },
+                            footerFontStyle: 'normal',
                         },
                         hover: {
                             mode: 'index',
