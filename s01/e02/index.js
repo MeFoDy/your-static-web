@@ -27,7 +27,7 @@ async function getTwitterData() {
 async function getVkData(browser) {
     const result = await getSocialData(browser, 'https://vk.com/webstandards_ru', async page => {
         const followers = await page.evaluate(() => {
-            const span = document.querySelector('#public_followers .module_header .header_count');
+            const span = document.querySelector('#public .group_friends .group_friends_count');
             return span.textContent;
         });
 
