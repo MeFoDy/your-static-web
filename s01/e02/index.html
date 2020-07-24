@@ -10,6 +10,7 @@
         <canvas id="canvas" width="400" height="200"></canvas>
         <button id="absolute" type="button">Абсолютное число</button>
         <button id="relative" type="button">Относительное число</button>
+        <button id="month" type="button">Прирост по месяцам</button>
 
         <script src="./node_modules/chart.js/dist/Chart.bundle.js"></script>
         <script>
@@ -25,7 +26,7 @@
                     telegram: 'rgb(255, 99, 71, 0.5)',
                 };
 
-                function generateDataset(data, processor) {
+                function generateDataset(data) {
                     return labels.map(label => {
                         return {
                             label: label,
@@ -34,9 +35,13 @@
                             pointStyle: 'rectRot',
                             pointRadius: 7,
                             pointBorderColor: 'rgb(0, 0, 0)',
-                            data: processor(data).map(item => item[label]),
+                            data: data.map(item => item[label]),
                         };
                     });
+                }
+
+                function getLabels(data) {
+                    return data.map(item => item.date);
                 }
 
                 function absoluteProcessor(data) {
@@ -55,11 +60,42 @@
                     });
                 }
 
+                function monthProcessor(data) {
+                    const months = {};
+                    data.forEach(item => {
+                        const monthLabel = item.date.slice(0, 7);
+
+                        if (!months[monthLabel]) {
+                            months[monthLabel] = {};
+                            labels.forEach(label => {
+                                months[monthLabel][label] = 0;
+                            });
+                        }
+
+                        labels.forEach(label => {
+                            months[monthLabel][label] = item[label];
+                        });
+                    });
+
+                    const result = [];
+
+                    for (month in months) {
+                        result.push({
+                            ...months[month],
+                            date: month,
+                        });
+                    }
+
+                    return relativeProcessor(result);
+                }
+
+                const processed = relativeProcessor(data);
+
                 const config = {
                     type: 'line',
                     data: {
-                        labels: data.map(item => item.date),
-                        datasets: generateDataset(data, relativeProcessor),
+                        labels: processed.map(item => item.date),
+                        datasets: generateDataset(processed),
                     },
                     options: {
                         responsive: true,
@@ -99,7 +135,7 @@
                                 {
                                     type: 'time',
                                     time: {
-                                        unit: 'day',
+                                        unit: 'week',
                                     },
                                     scaleLabel: {
                                         display: true,
@@ -123,14 +159,26 @@
                 const ctx = document.getElementById('canvas').getContext('2d');
                 window.wstChart = new Chart(ctx, config);
 
-                document.querySelector('#relative').addEventListener('click', e => {
-                    window.wstChart.data.datasets = generateDataset(data, relativeProcessor);
-                    window.wstChart.update();
-                });
-
-                document.querySelector('#absolute').addEventListener('click', e => {
-                    window.wstChart.data.datasets = generateDataset(data, absoluteProcessor);
-                    window.wstChart.update();
+                [
+                    {
+                        selector: '#relative',
+                        processor: relativeProcessor,
+                    },
+                    {
+                        selector: '#absolute',
+                        processor: absoluteProcessor,
+                    },
+                    {
+                        selector: '#month',
+                        processor: monthProcessor,
+                    },
+                ].forEach(button => {
+                    document.querySelector(button.selector).addEventListener('click', e => {
+                        const processed = button.processor(data);
+                        window.wstChart.data.datasets = generateDataset(processed);
+                        window.wstChart.data.labels = getLabels(processed);
+                        window.wstChart.update();
+                    });
                 });
             })();
         </script>
