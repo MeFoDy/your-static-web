@@ -10,7 +10,7 @@
   "dependencies": {
     "chart.js": "^2.9.4",
     "mz": "^2.7.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "playwright": "^1.11.0"
   }
 }
